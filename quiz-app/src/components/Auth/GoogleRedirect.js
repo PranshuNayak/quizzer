@@ -6,6 +6,8 @@ import { Formik, Field, ErrorMessage, Form } from "formik";
 import * as Yup from "yup";
 import ValidationError from "../Alert/ValidationError";
 import './style.css'
+import ForbiddenError from "../Alert/ForbiddenError";
+
 function GoogleRedirect() {
 
   const navigate = useNavigate();
@@ -76,7 +78,7 @@ function GoogleRedirect() {
               </Form>
             </Formik>
           </div>
-        </div> </div>: <div className="col-12 forbidden text-light h1"/>
+        </div> </div>: <ForbiddenError/>
          }
 
       </div>

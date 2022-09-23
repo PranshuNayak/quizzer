@@ -3,7 +3,9 @@ import { useParams } from "react-router-dom";
 import { Formik, Field, Form } from "formik";
 import axios from "axios";
 
+
 import { useNavigate } from "react-router-dom";
+import ForbiddenError from "../Alert/ForbiddenError";
 
 function Quiz() {
   const navigate = useNavigate();
@@ -32,7 +34,9 @@ function Quiz() {
   }, []);
 
   return (
-    <div className="row justify-content-center align-items-center mt-5">
+    <>
+    {
+      localStorage.getItem('token') ? <div className="row justify-content-center align-items-center mt-5">
       <div className="col-12">
         {Object.keys(quiz).length === 0 ? (
           <div>Loading...</div>
@@ -45,7 +49,6 @@ function Quiz() {
               const res = window.confirm(
                 "You will not be able to change response later"
               );
-              console.log(values);
               if (res) {
                 try {
                   values.quiz_name = quiz.title;
@@ -135,7 +138,9 @@ function Quiz() {
           </Formik>
         )}
       </div>
-    </div>
+    </div> : <ForbiddenError/>
+    }
+    </>
   );
 }
 

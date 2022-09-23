@@ -49,7 +49,7 @@ function Sidebar() {
               <NavLink
                 className="nav-link text-light d-inline-block mx-2"
                 onClick={() => {
-                  localStorage.removeItem("token");
+                  localStorage.clear();
                 }}
                 aria-current="page"
                 to="/"

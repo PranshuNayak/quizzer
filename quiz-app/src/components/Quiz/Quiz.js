@@ -4,6 +4,8 @@ import * as Yup from "yup";
 import axios from "axios";
 import ValidationError from "../Alert/ValidationError";
 
+import ForbiddenError from "../Alert/ForbiddenError";
+
 function CreateQuiz() {
   const questionSchema = { title: "", type: "mcq", points: "1", options: [""] };
   const questionValidationSchema = Yup.object().shape({
@@ -16,7 +18,9 @@ function CreateQuiz() {
     questions: Yup.array(questionValidationSchema),
   });
   return (
-    <div className="row justify-content-center align-items-center">
+    <>
+    {
+      localStorage.getItem('token') ? <div className="row justify-content-center align-items-center">
       <div className="col-10">
         <div className="row">
           <div className="col-12 text-center border-bottom h3 my-5 p-1">
@@ -264,7 +268,9 @@ function CreateQuiz() {
           </div>
         </div>
       </div>
-    </div>
+    </div> :  <ForbiddenError/>
+    }
+    </>
   );
 }
 

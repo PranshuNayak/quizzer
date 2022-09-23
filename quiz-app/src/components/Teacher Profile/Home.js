@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import ForbiddenError from "../Alert/ForbiddenError";
 function Home() {
   const [arr, setArr] = useState({});
   const [modalData, setModalData] = useState({});
@@ -21,7 +22,9 @@ function Home() {
       // eslint-disable-next-line
   }, []);
   return (
-    <div className="row justify-content-center align-items-center mt-4">
+    <>
+    {
+      localStorage.getItem('token') ? <div className="row justify-content-center align-items-center mt-4">
       {Object.keys(arr).length === 0 ? (
         <div>Loading...</div>
       ) : (
@@ -138,7 +141,9 @@ function Home() {
           </div>
         </React.Fragment>
       )}
-    </div>
+    </div> : <ForbiddenError/>
+    }
+    </>
   );
 }
 

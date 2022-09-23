@@ -3,9 +3,12 @@ import Navbar from "./Navbar";
 import { Routes, Route } from "react-router-dom";
 import Quiz from "../Quiz/Quiz";
 import Home from "./Home";
+import ForbiddenError from "../Alert/ForbiddenError";
 function Profile() {
   return (
-    <div className="row justify-content-center align-items-center">
+    <>
+    {
+      localStorage.getItem('token') ? <div className="row justify-content-center align-items-center">
       <div className="col-12 h-25">
         <Navbar />
       </div>
@@ -13,7 +16,9 @@ function Profile() {
         <Route path="/" element={<Home />} />
         <Route path="quizzes" element={<Quiz />} />
       </Routes>
-    </div>
+    </div> : <ForbiddenError/>
+    }
+    </>
   );
 }
 

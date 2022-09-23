@@ -1,7 +1,10 @@
-import React from "react";
+import React,{useEffect} from "react";
 import GoogleAuth from "../Auth/GoogleAuth";
 import "./style.css";
 function Home() {
+  useEffect(()=>{
+    localStorage.clear()
+  })
   return (
     <div className="row vh-100 align-items-center">
       <div className="col-12 home p-5">
