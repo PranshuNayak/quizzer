@@ -1,0 +1,17 @@
+.home{
+    height:100vh;
+    background-image: url('../../images/sideimage.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow-x: hidden;
+}
+
+.logo-container{
+    height: 200px;
+}
+
+.logo{
+    width:100%;
+    height:100%;
+}
