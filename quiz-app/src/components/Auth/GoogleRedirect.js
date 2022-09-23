@@ -10,7 +10,7 @@ function GoogleRedirect() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-        const api_response = await axios.post('http://localhost:5000/authenticate/register',{
+        const api_response = await axios.post(`${process.env.REACT_APP_BACKENDURL}/authenticate/register`,{
             token:localStorage.getItem('token'),
             type:role
         })

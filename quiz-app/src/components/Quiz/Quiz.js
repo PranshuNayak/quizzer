@@ -34,7 +34,7 @@ function CreateQuiz() {
                 const res = window.confirm("Are you sure to submit the form");
                 if(res){
                   try {
-                    await axios.post("http://localhost:5000/quiz/create",{
+                    await axios.post(`${process.env.REACT_APP_BACKENDURL}/quiz/create`,{
                       token:localStorage.getItem('token'),
                       values
                     })

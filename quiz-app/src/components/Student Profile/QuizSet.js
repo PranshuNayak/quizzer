@@ -5,7 +5,7 @@ import {v4 as uuidv4} from 'uuid'
 function QuizSet() {
   const [quizes,setQuizes] = useState([])
   useEffect(()=>{
-       axios.get("http://localhost:5000/quiz")
+       axios.get(`${process.env.REACT_APP_BACKENDURL}/quiz`)
        .then((res)=>{
         setQuizes(res.data)
        })

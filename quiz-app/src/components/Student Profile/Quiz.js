@@ -13,7 +13,7 @@ function Quiz() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/quiz/${id}`)
+      .get(`${process.env.REACT_APP_BACKENDURL}/quiz/${id}`)
       .then((res) => {
         setQuiz(res.data);
         let ans = [];

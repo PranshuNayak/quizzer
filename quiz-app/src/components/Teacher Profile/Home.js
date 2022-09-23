@@ -5,7 +5,7 @@ function Home() {
   const [modalData, setModalData] = useState({});
   useEffect(() => {
     axios
-      .post("http://localhost:5000/quiz/teacher", {
+      .post(`${process.env.REACT_APP_BACKENDURL}/quiz/teacher`, {
         token: localStorage.getItem("token"),
       })
       .then((res) => {
