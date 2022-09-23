@@ -1,15 +1,15 @@
 import React from "react";
 import image from "../../images/home.jpg";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
-function OrderCard({quiz}) {
-  const navigate = useNavigate()
-  const takeQuiz = ()=>{
-    const res = window.confirm('Do you want to begin the quiz?')
-    if(res){
-      navigate(`begin/${quiz._id}`)
+function QuizCard({ quiz }) {
+  const navigate = useNavigate();
+  const takeQuiz = () => {
+    const res = window.confirm("Do you want to begin the quiz?");
+    if (res) {
+      navigate(`begin/${quiz._id}`);
     }
-  }
+  };
   return (
     <div className="card col-3 mx-2">
       <img src={image} className="card-img-top" alt="..." />
@@ -35,11 +35,13 @@ function OrderCard({quiz}) {
         </li>
 
         <li className="list-group-item">
-          <button className="btn btn-success" onClick={takeQuiz}>Take Quiz</button>
+          <button className="btn btn-success" onClick={takeQuiz}>
+            Take Quiz
+          </button>
         </li>
       </ul>
     </div>
   );
 }
 
-export default OrderCard;
+export default QuizCard;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Field, Form, FieldArray, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axios from 'axios'
+import axios from "axios";
 import ValidationError from "../Alert/ValidationError";
 
 function CreateQuiz() {
@@ -30,17 +30,20 @@ function CreateQuiz() {
                 questions: [questionSchema],
               }}
               validationSchema={validationSchema}
-              onSubmit={ async (values) => {
+              onSubmit={async (values) => {
                 const res = window.confirm("Are you sure to submit the form");
-                if(res){
+                if (res) {
                   try {
-                    await axios.post(`${process.env.REACT_APP_BACKENDURL}/quiz/create`,{
-                      token:localStorage.getItem('token'),
-                      values
-                    })
-                    window.alert('Quiz successfully created')
+                    await axios.post(
+                      `${process.env.REACT_APP_BACKENDURL}/quiz/create`,
+                      {
+                        token: localStorage.getItem("token"),
+                        values,
+                      }
+                    );
+                    window.alert("Quiz successfully created");
                   } catch (error) {
-                    window.alert('Some error occured')
+                    window.alert("Some error occured");
                   }
                 }
               }}
@@ -77,7 +80,7 @@ function CreateQuiz() {
                 <FieldArray name="questions">
                   {(props) => {
                     const { form, push, remove } = props;
-                    const { values} = form;
+                    const { values } = form;
                     const { questions } = values;
                     return (
                       <div>
@@ -150,12 +153,11 @@ function CreateQuiz() {
                                 const { type, options } = questions[index];
                                 return (
                                   <div className="col-12">
-                                    {type === "mcq"
-                                      ? <div className="row">
-
+                                    {type === "mcq" ? (
+                                      <div className="row">
                                         <div className="col-12">
-                                          {
-                                            options.map((option, optionIndex) => (
+                                          {options.map(
+                                            (option, optionIndex) => (
                                               <div className="row">
                                                 <div
                                                   className="input-group mb-3 col-12"
@@ -175,7 +177,9 @@ function CreateQuiz() {
                                                     <button
                                                       className="btn btn-success"
                                                       type="button"
-                                                      onClick={() => pushOption("")}
+                                                      onClick={() =>
+                                                        pushOption("")
+                                                      }
                                                     >
                                                       +
                                                     </button>
@@ -185,7 +189,9 @@ function CreateQuiz() {
                                                       className="btn btn-danger"
                                                       type="button"
                                                       onClick={() =>
-                                                        removeOption(optionIndex)
+                                                        removeOption(
+                                                          optionIndex
+                                                        )
                                                       }
                                                     >
                                                       -
@@ -197,24 +203,27 @@ function CreateQuiz() {
                                                   component={ValidationError}
                                                 />
                                               </div>
-                                            ))
-
-                                          }
-                                           <div className="col-12 my-2">
-                                          <button className="btn btn-warning"
-                                          type="button"
-                                          onClick={()=>{
-                                            options.sort()
-                                            const temp_ques = questions[index]
-                                            remove(index)
-                                            temp_ques.options = options
-                                            push(temp_ques)
-                                          }}
-                                          >Sort Options</button>
-                                        </div>
+                                            )
+                                          )}
+                                          <div className="col-12 my-2">
+                                            <button
+                                              className="btn btn-warning"
+                                              type="button"
+                                              onClick={() => {
+                                                options.sort();
+                                                const temp_ques =
+                                                  questions[index];
+                                                remove(index);
+                                                temp_ques.options = options;
+                                                push(temp_ques);
+                                              }}
+                                            >
+                                              Sort Options
+                                            </button>
+                                          </div>
                                         </div>
                                       </div>
-                                      : null}
+                                    ) : null}
                                   </div>
                                 );
                               }}

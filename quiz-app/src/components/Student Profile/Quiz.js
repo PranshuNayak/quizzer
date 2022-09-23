@@ -2,24 +2,24 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Formik, Field, Form } from "formik";
 import axios from "axios";
-import _ from "lodash";
-import {useNavigate} from 'react-router-dom'
-import { v4 as uuidv4 } from "uuid";
+
+import { useNavigate } from "react-router-dom";
+
 function Quiz() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { id } = useParams();
   const [quiz, setQuiz] = useState({});
   const [valueObj, setvalueObj] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACKENDURL}/quiz/${id}`)
+      .get(`/quiz/${id}`)
       .then((res) => {
         setQuiz(res.data);
         let ans = [];
         res.data.questions.forEach((question) => {
-          let temp = {}
-          temp.question = question.title
+          let temp = {};
+          temp.question = question.title;
           temp.answer = "";
           ans.push(temp);
         });
@@ -45,18 +45,21 @@ function Quiz() {
               const res = window.confirm(
                 "You will not be able to change response later"
               );
-              console.log(values)
+              console.log(values);
               if (res) {
                 try {
-                  values.quiz_name = quiz.title
-                  const res = await axios.post(`http://localhost:5000/quiz/${quiz._id}/submit`,{
-                  token:localStorage.getItem('token'),
-                  values
-                })
-                alert('Your responses have been successfully recorded')
-                navigate(-1)
+                  values.quiz_name = quiz.title;
+                  await axios.post(
+                    `http://localhost:5000/quiz/${quiz._id}/submit`,
+                    {
+                      token: localStorage.getItem("token"),
+                      values,
+                    }
+                  );
+                  alert("Your responses have been successfully recorded");
+                  navigate(-1);
                 } catch (error) {
-                  alert('quiz submission failed , try again')
+                  alert("quiz submission failed , try again");
                 }
               }
             }}

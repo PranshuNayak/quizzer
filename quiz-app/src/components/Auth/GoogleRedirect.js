@@ -1,74 +1,86 @@
-import React, { useState } from "react";
-import axios from 'axios'
+import React from "react";
+import axios from "axios";
 import { decodeToken } from "react-jwt";
 import { useNavigate } from "react-router-dom";
-
-
+import { Formik, Field, ErrorMessage, Form } from "formik";
+import * as Yup from "yup";
+import ValidationError from "../Alert/ValidationError";
+import './style.css'
 function GoogleRedirect() {
-  const navigate = useNavigate()
-  const [role,setRole] = useState('Student')
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    try {
-        const api_response = await axios.post(`${process.env.REACT_APP_BACKENDURL}/authenticate/register`,{
-            token:localStorage.getItem('token'),
-            type:role
-        })
-        localStorage.removeItem('token')
-        localStorage.setItem('token',api_response.data)
-        const data = decodeToken(api_response.data);
-        console.log(data)
-        if(data.type==="Teacher")
-        navigate('/profile/educator')
-        else navigate('/profile/student')
-    } catch (error) {
-        navigate('/')
-    }
-  };
-  return (
-    <div className="container">
-      <div className="row">
-        <div className="col-12">Registration</div>
-        <div className="col-12">Select your role</div>
-        <form onSubmit={handleSubmit}>
-        <div className="col-12">
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="radio"
-              name="Role"
-              value='Teacher'
-              onChange={(e)=>{setRole(e.target.value)}}
-            />
-            <label className="form-check-label" for="Teacher1">
-              Teacher
-            </label>
-          </div>
-        </div>
-        <div className="col-12">
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="radio"
-              name="Role"
-              value='Student'
-              onChange={(e)=>{setRole(e.target.value)}}
-            />
-            <label className="form-check-label" for="Student">
-              Student
-            </label>
-          </div>
-        </div>
 
-        <div className="col-12">
-          <button className="btn btn-primary" type="submit">
-            Submit
-          </button>
-        </div>
-        </form>
+  const navigate = useNavigate();
+  const roleTypes = ["Teacher", "Student"];
+  const validationSchema = Yup.object().shape({
+    type: Yup.string().required("role is required"),
+  });
+  return (
+
+      <div className="row vh-100 align-items-center">
+
+         {
+          localStorage.getItem('token') ?  <div className="col-12 redirect p-5"> <div className="row text-light">
+          <div className="col-7 my-2 h3">Registration Form</div>
+          <div className="col-7 h5 my-2">
+            Your details have already been fetched from google . Please selece
+            your role to continue.
+          </div>
+          <div className="col-7">
+            <Formik
+              initialValues={{
+                type: "",
+              }}
+              validationSchema={validationSchema}
+              onSubmit={async (values) => {
+                try {
+                  const api_response = await axios.post(
+                    `${process.env.REACT_APP_BACKENDURL}/authenticate/register`,
+                    {
+                      token: localStorage.getItem("token"),
+                      values
+                    }
+                  );
+                  localStorage.removeItem("token");
+                  localStorage.setItem("token", api_response.data);
+                  const data = decodeToken(api_response.data);
+                  if (data.type === "Teacher") navigate("/profile/educator");
+                  else navigate("/profile/student");
+                } catch (error) {
+                  alert("Login/Signup failed");
+                  navigate("/");
+                }
+              }}
+            >
+              <Form>
+                <Field name="type">
+                  {({ field }) => {
+                    return roleTypes.map((type, index) => (
+                      <div className="form-check my-2" key={index}>
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          id={type}
+                          {...field}
+                          value={type}
+                        />
+                        <label className="form-check-label" htmlFor={type}>
+                          {type}
+                        </label>
+                      </div>
+                    ));
+                  }}
+                </Field>
+                <ErrorMessage name="type" component={ValidationError} />
+                <button className="btn btn-primary" type="submit">
+                  Submit
+                </button>
+              </Form>
+            </Formik>
+          </div>
+        </div> </div>: <div className="col-12 forbidden text-light h1"/>
+         }
 
       </div>
-    </div>
+
   );
 }
 

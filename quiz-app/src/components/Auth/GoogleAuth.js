@@ -4,7 +4,7 @@ import env from "react-dotenv";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { decodeToken } from "react-jwt";
-import Google from '../../images/google.png'
+
 import './style.css'
 function GoogleAuth() {
   const navigate = useNavigate();
@@ -23,15 +23,16 @@ function GoogleAuth() {
         else navigate("profile/student");
       } else navigate("/auth/register");
     } catch (error) {
-      console.log(error);
+      alert('Login/Signup failed')
       // redirect to home with error
+      navigate('/')
     }
   };
   return (
     <GoogleLogin
       render={(renderProps) => (
-        <button onClick={renderProps.onClick} disabled={renderProps.disabled} className="btn btn-outline-primary w-100 ">
-          <img src={Google} alt="" srcset="" className="login" />
+        <button onClick={renderProps.onClick} disabled={renderProps.disabled} className="btn btn-dark w-100">
+          Google
         </button>
       )}
       clientId={env.GOOGLE_CLIENT_ID}

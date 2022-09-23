@@ -1,6 +1,6 @@
 import React from "react";
 import { decodeToken } from "react-jwt";
-import {NavLink,Link} from 'react-router-dom'
+import { NavLink, Link } from "react-router-dom";
 import "./style.css";
 function Sidebar() {
   const data = decodeToken(localStorage.getItem("token"));
@@ -9,7 +9,12 @@ function Sidebar() {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
       <div className="container-fluid">
         <Link className="navbar-brand" to="dashboard">
-          <img className="profile-image" referrerPolicy="no-referrer" src={data.picture} alt="profile"  />
+          <img
+            className="profile-image"
+            referrerPolicy="no-referrer"
+            src={data.picture}
+            alt="profile"
+          />
           <span className="d-inline-block mx-2">{data.given_name}</span>
         </Link>
         <button
@@ -26,7 +31,7 @@ function Sidebar() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item">
-            <NavLink
+              <NavLink
                 className="nav-link text-light d-inline-block mx-2"
                 aria-current="page"
                 to="/profile/student"
@@ -44,7 +49,9 @@ function Sidebar() {
             <li className="nav-item">
               <NavLink
                 className="nav-link text-ligth d-inline-block mx-2"
-                onClick={()=>{localStorage.removeItem('token')}}
+                onClick={() => {
+                  localStorage.removeItem("token");
+                }}
                 aria-current="page"
                 to="/"
               >

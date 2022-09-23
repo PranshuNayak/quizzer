@@ -18,6 +18,7 @@ function Home() {
       .catch((error) => {
         console.log(error);
       });
+      // eslint-disable-next-line
   }, []);
   return (
     <div className="row justify-content-center align-items-center mt-4">
@@ -79,9 +80,11 @@ function Home() {
                     <div class="modal-content">
                       <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">
-                          {
-                            Object.keys(modalData).length===0 ? <>Quiz Summary</> : <>{modalData.quiz_name}</>
-                          }
+                          {Object.keys(modalData).length === 0 ? (
+                            <>Quiz Summary</>
+                          ) : (
+                            <>{modalData.quiz_name}</>
+                          )}
                         </h5>
                         <button
                           type="button"
@@ -91,8 +94,10 @@ function Home() {
                         ></button>
                       </div>
                       <div class="modal-body">
-                        {
-                            Object.keys(modalData).length===0 ? <>Getting your responses</> : <table class="table">
+                        {Object.keys(modalData).length === 0 ? (
+                          <>Getting your responses</>
+                        ) : (
+                          <table class="table">
                             <thead>
                               <tr>
                                 <th scope="col">Index</th>
@@ -112,7 +117,7 @@ function Home() {
                               ))}
                             </tbody>
                           </table>
-                        }
+                        )}
                       </div>
                       <div class="modal-footer">
                         <button
