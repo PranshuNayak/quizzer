@@ -18,7 +18,7 @@ mongoose.connect(
 .catch(e=>console.log(e));
 
 //setup cors
-// app.use(cors());
+app.use(cors());
 app.use(bodyParser.json());
 
 //setup routes
