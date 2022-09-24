@@ -20,7 +20,7 @@ function QuizSet() {
   return (
     <>
     {
-      localStorage.getItem('token') ? <div className="col-12 mt-5">
+      localStorage.getItem('type') && localStorage.getItem('type')==="Student" ? <div className="col-12 mt-5">
       <div className="row justify-content-evenly align-items-center">
         {quizes.map((quiz) => (
           <QuizCard key={uuidv4()} quiz={quiz} />

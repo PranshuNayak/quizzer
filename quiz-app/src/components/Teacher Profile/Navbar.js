@@ -40,7 +40,7 @@ function Sidebar() {
               <NavLink
                 className="nav-link text-light d-inline-block mx-2"
                 aria-current="page"
-                to="quizzes"
+                to="/profile/educator/quiz/create"
               >
                 Create Quiz
               </NavLink>

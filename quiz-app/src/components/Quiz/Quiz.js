@@ -20,7 +20,7 @@ function CreateQuiz() {
   return (
     <>
     {
-      localStorage.getItem('token') ? <div className="row justify-content-center align-items-center">
+      localStorage.getItem('type') && localStorage.getItem('type')==="Teacher"  ? <div className="row justify-content-center align-items-center">
       <div className="col-10">
         <div className="row">
           <div className="col-12 text-center border-bottom h3 my-5 p-1">

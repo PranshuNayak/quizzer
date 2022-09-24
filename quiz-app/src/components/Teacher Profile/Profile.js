@@ -14,7 +14,7 @@ function Profile() {
       </div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="quizzes" element={<Quiz />} />
+        <Route path="quiz/create" element={<Quiz />} />
       </Routes>
     </div> : <ForbiddenError/>
     }

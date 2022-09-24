@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ForbiddenError from "../Alert/ForbiddenError";
+import Spinnner from "../Alert/Spinner";
 
 
 function Home() {
@@ -20,15 +21,16 @@ function Home() {
       })
       .catch((error) => {
         console.log(error);
+        alert('Error fetching data try again...')
       });
       // eslint-disable-next-line
   }, []);
   return (
     <>
     {
-      localStorage.getItem('token') ? <div className="row justify-content-center align-items-center mt-4">
+      localStorage.getItem('type') && localStorage.getItem('type')==="Student"  ? <div className="row justify-content-center align-items-center mt-4">
       {Object.keys(arr).length === 0 ? (
-        <div>Loading...</div>
+        <Spinnner/>
       ) : (
         <React.Fragment>
           <div className="col-12">
@@ -37,7 +39,7 @@ function Home() {
               <div className="col-12">You have not attempted any quiz </div>
             ) : (
               <div className="col-12">
-                <table class="table">
+                <table className="table">
                   <thead>
                     <tr>
                       <th scope="col">Index</th>
@@ -48,8 +50,8 @@ function Home() {
                   </thead>
                   <tbody>
                     {arr.data.map((element, index) => (
-                      <tr>
-                        <th scope="row" key={index}>
+                      <tr key={index}>
+                        <th scope="row" >
                           {index + 1}
                         </th>
                         <td>{element.quiz_id}</td>
@@ -75,16 +77,16 @@ function Home() {
                 </table>
 
                 <div
-                  class="modal fade"
+                  className="modal fade"
                   id="responsemodal"
-                  tabindex="-1"
+                  tabIndex="-1"
                   aria-labelledby="responsemodalLabel"
                   aria-hidden="true"
                 >
-                  <div class="modal-dialog modal-xl">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
+                  <div className="modal-dialog modal-xl">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">
                           {Object.keys(modalData).length === 0 ? (
                             <>Quiz Summary</>
                           ) : (
@@ -93,16 +95,16 @@ function Home() {
                         </h5>
                         <button
                           type="button"
-                          class="btn-close"
+                          className="btn-close"
                           data-bs-dismiss="modal"
                           aria-label="Close"
                         ></button>
                       </div>
-                      <div class="modal-body">
+                      <div className="modal-body">
                         {Object.keys(modalData).length === 0 ? (
                           <>Getting your responses</>
                         ) : (
-                          <table class="table">
+                          <table className="table">
                             <thead>
                               <tr>
                                 <th scope="col">Index</th>
@@ -124,10 +126,10 @@ function Home() {
                           </table>
                         )}
                       </div>
-                      <div class="modal-footer">
+                      <div className="modal-footer">
                         <button
                           type="button"
-                          class="btn btn-secondary"
+                          className="btn btn-secondary"
                           data-bs-dismiss="modal"
                         >
                           Close

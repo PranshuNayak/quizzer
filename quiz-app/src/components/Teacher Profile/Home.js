@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ForbiddenError from "../Alert/ForbiddenError";
+import Spinnner from "../Alert/Spinner";
 function Home() {
   const [arr, setArr] = useState({});
   const [modalData, setModalData] = useState({});
@@ -17,16 +18,16 @@ function Home() {
         }
       })
       .catch((error) => {
-        console.log(error);
+        alert('unable to fetch your items')
       });
       // eslint-disable-next-line
   }, []);
   return (
     <>
     {
-      localStorage.getItem('token') ? <div className="row justify-content-center align-items-center mt-4">
+      localStorage.getItem('type') && localStorage.getItem('type')==="Teacher"  ? <div className="row justify-content-center align-items-center mt-4">
       {Object.keys(arr).length === 0 ? (
-        <div>Loading...</div>
+        <Spinnner/>
       ) : (
         <React.Fragment>
           <div className="col-12">

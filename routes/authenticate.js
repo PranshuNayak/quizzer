@@ -50,7 +50,7 @@ router.post("/", async (req, res) => {
 router.post('/register',[userRegistration],async(req,res)=>{
     try {
       const user_db = await users.findById(req.body.userid)
-      user_db.type = req.body.type
+      user_db.type = req.body.values.type
       await user_db.save()
       const token = jwt.sign(
         _.pick(user_db, ["_id","picture", "given_name","email","type"]),

@@ -6,6 +6,7 @@ import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 import ForbiddenError from "../Alert/ForbiddenError";
+import Spinnner from "../Alert/Spinner";
 
 function Quiz() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ function Quiz() {
 
   useEffect(() => {
     axios
-      .get(`/quiz/${id}`)
+      .get(`${process.env.REACT_APP_BACKENDURL}/quiz/${id}`)
       .then((res) => {
         setQuiz(res.data);
         let ans = [];
@@ -36,10 +37,10 @@ function Quiz() {
   return (
     <>
     {
-      localStorage.getItem('token') ? <div className="row justify-content-center align-items-center mt-5">
+      localStorage.getItem('type') && localStorage.getItem('type')==="Student" ? <div className="row justify-content-center align-items-center mt-5">
       <div className="col-12">
         {Object.keys(quiz).length === 0 ? (
-          <div>Loading...</div>
+          <Spinnner/>
         ) : (
           <Formik
             initialValues={{
@@ -53,7 +54,7 @@ function Quiz() {
                 try {
                   values.quiz_name = quiz.title;
                   await axios.post(
-                    `http://localhost:5000/quiz/${quiz._id}/submit`,
+                    `${process.env.REACT_APP_BACKENDURL}/quiz/${quiz._id}/submit`,
                     {
                       token: localStorage.getItem("token"),
                       values,
@@ -71,7 +72,7 @@ function Quiz() {
               {
                 <div className="row justify-content-center align-items-center">
                   <div className="col-5 h3 text-center">
-                    Time - {quiz.duration}
+                    Grade - {quiz.duration}
                   </div>
                   <div className="col-5 h3  ">Quiz - {quiz.title}</div>
                   <div className="col-2">

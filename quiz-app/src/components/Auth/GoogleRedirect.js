@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import axios from "axios";
 import { decodeToken } from "react-jwt";
 import { useNavigate } from "react-router-dom";
@@ -7,10 +7,12 @@ import * as Yup from "yup";
 import ValidationError from "../Alert/ValidationError";
 import './style.css'
 import ForbiddenError from "../Alert/ForbiddenError";
+import Spinnner from "../Alert/Spinner";
 
 function GoogleRedirect() {
 
   const navigate = useNavigate();
+  const [loading,setLoading] = useState(false)
   const roleTypes = ["Teacher", "Student"];
   const validationSchema = Yup.object().shape({
     type: Yup.string().required("role is required"),
@@ -33,6 +35,7 @@ function GoogleRedirect() {
               }}
               validationSchema={validationSchema}
               onSubmit={async (values) => {
+                setLoading(true)
                 try {
                   const api_response = await axios.post(
                     `${process.env.REACT_APP_BACKENDURL}/authenticate/register`,
@@ -44,12 +47,19 @@ function GoogleRedirect() {
                   localStorage.removeItem("token");
                   localStorage.setItem("token", api_response.data);
                   const data = decodeToken(api_response.data);
-                  if (data.type === "Teacher") navigate("/profile/educator");
-                  else navigate("/profile/student");
+                  if (data.type === "Teacher") {
+                    localStorage.setItem('type','Teacher')
+                    navigate("/profile/educator");
+                  }
+                  else {
+                    localStorage.setItem('type','Student')
+                    navigate("/profile/student");
+                  }
                 } catch (error) {
                   alert("Login/Signup failed");
                   navigate("/");
                 }
+                setLoading(false)
               }}
             >
               <Form>
@@ -72,9 +82,12 @@ function GoogleRedirect() {
                   }}
                 </Field>
                 <ErrorMessage name="type" component={ValidationError} />
-                <button className="btn btn-primary" type="submit">
+                {
+                  loading ? <Spinnner/> : <button className="btn btn-primary" type="submit">
                   Submit
                 </button>
+                }
+
               </Form>
             </Formik>
           </div>

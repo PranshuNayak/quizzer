@@ -38,7 +38,6 @@ router.post("/create",[createQuiz] ,async (req, res) => {
 
 router.post('/:id/submit',[giveQuiz],async(req,res)=>{
     req.body.values.quiz_id = req.params.id
-    console.log(req.body.values)
     try {
         const new_response = new quizresponses(req.body.values)
         await new_response.save()

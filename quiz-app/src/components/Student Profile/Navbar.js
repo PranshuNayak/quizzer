@@ -41,7 +41,7 @@ function Sidebar() {
               <NavLink
                 className="nav-link text-light d-inline-block mx-2"
                 aria-current="page"
-                to="quizzes"
+                to="/profile/student/quiz/list"
               >
                 Quizes
               </NavLink>

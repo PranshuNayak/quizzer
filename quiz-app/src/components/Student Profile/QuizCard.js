@@ -7,7 +7,7 @@ function QuizCard({ quiz }) {
   const takeQuiz = () => {
     const res = window.confirm("Do you want to begin the quiz?");
     if (res) {
-      navigate(`begin/${quiz._id}`);
+      navigate(`/profile/student/quiz/begin/${quiz._id}`);
     }
   };
   return (
