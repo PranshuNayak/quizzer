@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Formik, Field, Form, FieldArray, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -7,6 +8,7 @@ import ValidationError from "../Alert/ValidationError";
 import ForbiddenError from "../Alert/ForbiddenError";
 
 function CreateQuiz() {
+  const navigate = useNavigate()
   const questionSchema = { title: "", type: "mcq", points: "1", options: [""] };
   const questionValidationSchema = Yup.object().shape({
     title: Yup.string().required("title required"),
@@ -46,6 +48,7 @@ function CreateQuiz() {
                       }
                     );
                     window.alert("Quiz successfully created");
+                    navigate('/profile/educator')
                   } catch (error) {
                     window.alert("Some error occured");
                   }
