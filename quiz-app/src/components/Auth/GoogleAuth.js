@@ -15,13 +15,15 @@ function GoogleAuth() {
     setLoading(true)
     try {
       const api_response = await axios.post(
-        `${process.env.REACT_APP_BACKENDURL}/authenticate`,
+        `${env.REACT_APP_BACKEND_URL}/authenticate`,
         {
           id_token: response.tokenId,
         }
       );
       localStorage.setItem("token", api_response.data);
       const data = decodeToken(api_response.data);
+      console.log(data)
+      console.log(api_response)
       if (api_response.status === 200) {
         if (data.type === "Teacher") {
           localStorage.setItem("type", "Teacher");
@@ -54,9 +56,7 @@ function GoogleAuth() {
             </button>
           )}
           clientId={
-            env.GOOGLE_CLIENT_ID
-              ? env.GOOGLE_CLIENT_ID
-              : "66772609849-mi99q4kqf86alvgt6vf5obm5v2bti5bo.apps.googleusercontent.com"
+            env.REACT_APP_GOOGLE_CLIENT_ID
           }
           buttonText="Login"
           onSuccess={responseGoogle}

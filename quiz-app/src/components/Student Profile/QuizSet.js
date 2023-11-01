@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import QuizCard from "./QuizCard";
 import { v4 as uuidv4 } from "uuid";
-
+import env from "react-dotenv"
 import ForbiddenError from "../Alert/ForbiddenError";
 function QuizSet() {
   const [quizes, setQuizes] = useState([]);
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACKENDURL}/quiz`)
+      .get(`${env.REACT_APP_BACKEND_URL}/quiz`)
       .then((res) => {
         setQuizes(res.data);
       })

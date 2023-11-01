@@ -1,5 +1,6 @@
 import React,{useState} from "react";
 import axios from "axios";
+import env from "react-dotenv"
 import { decodeToken } from "react-jwt";
 import { useNavigate } from "react-router-dom";
 import { Formik, Field, ErrorMessage, Form } from "formik";
@@ -38,7 +39,7 @@ function GoogleRedirect() {
                 setLoading(true)
                 try {
                   const api_response = await axios.post(
-                    `${process.env.REACT_APP_BACKENDURL}/authenticate/register`,
+                    `${env.REACT_APP_BACKEND_URL}/authenticate/register`,
                     {
                       token: localStorage.getItem("token"),
                       values

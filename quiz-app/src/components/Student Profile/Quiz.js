@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Formik, Field, Form } from "formik";
 import axios from "axios";
-
-
+import env from "react-dotenv"
 import { useNavigate } from "react-router-dom";
 import ForbiddenError from "../Alert/ForbiddenError";
 import Spinnner from "../Alert/Spinner";
@@ -16,7 +15,7 @@ function Quiz() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACKENDURL}/quiz/${id}`)
+      .get(`${env.REACT_APP_BACKEND_URL}/quiz/${id}`)
       .then((res) => {
         setQuiz(res.data);
         let ans = [];
@@ -54,7 +53,7 @@ function Quiz() {
                 try {
                   values.quiz_name = quiz.title;
                   await axios.post(
-                    `${process.env.REACT_APP_BACKENDURL}/quiz/${quiz._id}/submit`,
+                    `${env.REACT_APP_BACKEND_URL}/quiz/${quiz._id}/submit`,
                     {
                       token: localStorage.getItem("token"),
                       values,

@@ -5,8 +5,11 @@ import GoogleRedirect from './components/Auth/GoogleRedirect';
 import Home from './components/Home/Home';
 import StudentProfile from './components/Student Profile/Profile'
 import EducatorProfile from './components/Teacher Profile/Profile'
+import env from "react-dotenv";
 
 function App() {
+  console.log(env.REACT_APP_BACKEND_URL)
+  console.log(env.REACT_APP_GOOGLE_CLIENT_ID)
   return (
     <div className="App container-fluid p-0 m-0 overflow-hidden">
 

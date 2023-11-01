@@ -4,7 +4,7 @@ import { Formik, Field, Form, FieldArray, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import ValidationError from "../Alert/ValidationError";
-
+import env from "react-dotenv"
 import ForbiddenError from "../Alert/ForbiddenError";
 
 function CreateQuiz() {
@@ -41,7 +41,7 @@ function CreateQuiz() {
                 if (res) {
                   try {
                     await axios.post(
-                      `${process.env.REACT_APP_BACKENDURL}/quiz/create`,
+                      `${env.REACT_APP_BACKEND_URL}/quiz/create`,
                       {
                         token: localStorage.getItem("token"),
                         values,

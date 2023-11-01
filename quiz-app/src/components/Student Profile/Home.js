@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ForbiddenError from "../Alert/ForbiddenError";
 import Spinnner from "../Alert/Spinner";
-
+import env from "react-dotenv"
 
 function Home() {
   const [arr, setArr] = useState({});
   const [modalData, setModalData] = useState({});
   useEffect(() => {
     axios
-      .post(`${process.env.REACT_APP_BACKENDURL}/quiz/student`, {
+      .post(`${env.REACT_APP_BACKEND_URL}/quiz/student`, {
         token: localStorage.getItem("token"),
       })
       .then((res) => {
